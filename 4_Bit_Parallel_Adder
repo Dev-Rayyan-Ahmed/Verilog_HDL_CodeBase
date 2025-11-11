@@ -1,0 +1,23 @@
+module full_adder(x, y, cin, s, cout);
+    input x,y,cin;
+    output wire s, cout;
+    assign s = x ^ y ^ cin;
+    assign cout = ((x^y)&cin)|(x&y);
+
+endmodule
+
+module parallel_adder(x, y, cin, Sum, cout4);
+    input wire [3:0] x;
+    input wire [3:0] y;
+    input wire cin;
+    output wire [3:0] Sum;
+    output cout4;
+    wire [2:0] cout;
+
+    full_adder add0(x[0],y[0],cin, Sum[0], cout[0]);
+    full_adder add1(x[1],y[1],cout[0], Sum[1], cout[1]);
+    full_adder add2(x[2],y[2],cout[1], Sum[2], cout[2]);
+    full_adder add3(x[3],y[3],cout[2], Sum[3], cout4);
+    
+endmodule
+
